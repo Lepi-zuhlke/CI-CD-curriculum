@@ -37,14 +37,24 @@ jobs:
     # Run dotnet build and publish
     - name: dotnet build unit test and publish
       run: |
+        echo "starting ls"
+        ls -lha
+        echo "ending ls"
         cd ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
         dotnet restore
         dotnet build --configuration Release
         dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/build'
-        cd -
-
+        echo "starting ls"
+        ls -lha
+        echo "ending ls"
+        
     - name: Archive Application
       run: |
+        pwd
+        ls -lha ../
+        echo "starting ls"
+        ls -lha
+        echo "ending ls"
         zip -qq -r ./buildartifacts/Application.zip ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/build
 
     - name: Upload Application to Build Artifact
